@@ -1,3 +1,1 @@
-"# JavaSudoku" 
-"# JavaSudoku" 
-"# JavaSudoku" 
+Welcome to my Java Sudoku Project :)
