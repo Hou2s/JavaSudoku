@@ -14,6 +14,8 @@ public class SudokuGUI extends JFrame {
     private final int gridSize = 9;
     private final int subGridSize = 3;
     private SudokuBoard sudokuBoard;
+    private HeartManager heartManager;
+
 
 
 
@@ -77,6 +79,26 @@ public class SudokuGUI extends JFrame {
         gbc.insets = new Insets(10, 0, 0, 0); // Some padding above the title
         add(titleLabel, gbc);
 
+        // Create a new panel for the hearts
+        JPanel heartPanel = new JPanel();
+        heartPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        heartPanel.setOpaque(false); // Make the panel transparent
+
+// Adjust constraints for the heartPanel
+        gbc = new GridBagConstraints(); // Reset the GridBagConstraints or create a new one
+        gbc.gridx = 0; // Position on the grid
+        gbc.gridy = 2; // This might need to be adjusted depending on where you want the panel
+        gbc.gridwidth = GridBagConstraints.REMAINDER; // Span across all columns
+        gbc.fill = GridBagConstraints.HORIZONTAL; // Fill the space horizontally
+        gbc.anchor = GridBagConstraints.SOUTH; // Anchor to the south
+        add(heartPanel, gbc); // Add with GridBagConstraints
+
+
+// Now you can safely pass the heartPanel to the HeartManager
+        this.heartManager = new HeartManager(screenManager, heartPanel, 3);
+
+
+
         addBackButton(); // Add the Back button
     }
 
@@ -133,6 +155,7 @@ public class SudokuGUI extends JFrame {
                         textField.setForeground(new Color(40,166,100));
                     } else {
                         textField.setForeground(new Color(168,24,24));
+                        heartManager.loseHeart(); // Decrease a heart on wrong input
                     }
                 }
             }
