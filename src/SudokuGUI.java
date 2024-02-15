@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.text.DocumentFilter;
@@ -8,12 +9,16 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 
 public class SudokuGUI extends JFrame {
+    private ScreenManager screenManager;
     private JTextField[][] gridFields;
     private final int gridSize = 9;
     private final int subGridSize = 3;
     private SudokuBoard sudokuBoard;
 
-    public SudokuGUI() {
+
+
+    public SudokuGUI(ScreenManager screenManager) {
+        this.screenManager = screenManager;
         sudokuBoard = new SudokuBoard(); // Create a new Sudoku board
         setTitle("Sudoku Game");
         setSize(600, 700);
@@ -21,8 +26,8 @@ public class SudokuGUI extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        initializeUI();
-        setBoard(sudokuBoard.getBoard());
+        initializeUI(); // Initialize the Sudoku board UI
+        setBoard(sudokuBoard.getBoard()); // Set the board with predefined numbers
     }
 
     //
@@ -71,6 +76,19 @@ public class SudokuGUI extends JFrame {
         gbc.gridy = 1; // Placing it below the Sudoku board
         gbc.insets = new Insets(10, 0, 0, 0); // Some padding above the title
         add(titleLabel, gbc);
+
+        addBackButton(); // Add the Back button
+    }
+
+    private void addBackButton() {
+        JButton backButton = new JButton("Back");
+        backButton.setFont(new Font("Arial", Font.BOLD, 20));
+        backButton.addActionListener((ActionEvent e) -> screenManager.toMainMenu());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.insets = new Insets(10, 0, 0, 0); // Some padding above the back button
+        add(backButton, gbc);
     }
 
     private void setBoard(int[][] board) {
@@ -121,7 +139,5 @@ public class SudokuGUI extends JFrame {
         });
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new SudokuGUI().setVisible(true));
-    }
+
 }

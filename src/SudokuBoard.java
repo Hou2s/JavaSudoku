@@ -3,6 +3,20 @@ import java.util.Random;
 public class SudokuBoard {
     private int[][] board;
     private int[][] solution;
+
+    public SudokuBoard() {
+        // Randomly select one of the predefined boards to be the current board
+        selectRandomBoard();
+    }
+
+    private void selectRandomBoard() {
+        Random random = new Random();
+        int index = random.nextInt(predefinedBoards.length);
+        board = copyBoard(predefinedBoards[index]);
+        solution = copyBoard(solutions[index]);
+    }
+
+
     private static final int[][][] predefinedBoards = {
 
             {
@@ -62,14 +76,6 @@ public class SudokuBoard {
 
     };
 
-
-    public SudokuBoard() {
-        // Randomly select one of the predefined boards to be the current board
-        Random random = new Random();
-        int index = random.nextInt(predefinedBoards.length);
-        board = copyBoard(predefinedBoards[index]);
-        solution = copyBoard(solutions[index]);
-    }
 
     private int[][] copyBoard(int[][] source) {
         int[][] copy = new int[source.length][source.length];
