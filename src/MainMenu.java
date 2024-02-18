@@ -8,7 +8,7 @@ public class MainMenu extends JFrame {
     public MainMenu(ScreenManager screenManager) {
         this.screenManager = screenManager;
         setTitle("Sudoku Main Menu");
-        setSize(300, 200);
+        setSize(600, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setBackground(new Color(13, 99, 122)); // A shade of blue for the background
         setLocationRelativeTo(null);
