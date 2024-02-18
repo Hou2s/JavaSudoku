@@ -19,7 +19,6 @@ public class SudokuGUI extends JFrame {
     private JLabel timerLabel;
     private GameTimer gameTimer;
 
-
     public SudokuGUI(ScreenManager screenManager) {
         this.screenManager = screenManager;
         sudokuBoard = new SudokuBoard();
