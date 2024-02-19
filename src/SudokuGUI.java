@@ -99,24 +99,29 @@ public class SudokuGUI extends JFrame {
 
         // Back Button setup
         JButton backButton = createBackButton();
+        gbc.anchor = GridBagConstraints.WEST;
         gbc.gridx = 0; // First column
         gbc.gridy = 0; // First row
-        gbc.insets = new Insets(0, 20, 0, 45);
+        gbc.weightx = 0;
+        gbc.insets = new Insets(0, 20, 0, 50);
         bottomPanel.add(backButton, gbc);
 
         // Timer Label setup
         timerLabel = createTimerLabel();
+        gbc.anchor = GridBagConstraints.CENTER;
         gbc.gridx = 1;
-        gbc.weightx = 0; // The timer will not absorb extra space
-        gbc.fill = GridBagConstraints.NONE;
-        gbc.insets = new Insets(0, 50, 0, 50);
+        gbc.gridy = 0;
+        gbc.weightx = 1;
+        gbc.insets = new Insets(0, 10, 0, 0);
         bottomPanel.add(timerLabel, gbc);
 
         // Heart Panel setup
         JPanel heartPanel = createHeartPanel();
+        gbc.anchor = GridBagConstraints.EAST;
         gbc.gridx = 2;
-        gbc.weightx = 0; // The hearts will not absorb extra space
-        gbc.insets = new Insets(0, 0, 0, 0);
+        gbc.gridy = 0;
+        gbc.weightx = 0;
+        gbc.insets = new Insets(0, 0, 0, 15);
         bottomPanel.add(heartPanel, gbc);
 
         // Add the entire bottomPanel to the main frame
@@ -125,11 +130,15 @@ public class SudokuGUI extends JFrame {
         mainGbc.gridy = GridBagConstraints.RELATIVE; // This will place it at the end
         mainGbc.gridwidth = GridBagConstraints.REMAINDER;
         mainGbc.fill = GridBagConstraints.HORIZONTAL;
+        mainGbc.weighty = 0;
         add(bottomPanel, mainGbc);
 
         // Start the game timer
         gameTimer = new GameTimer();
         gameTimer.start();
+
+        bottomPanel.revalidate();
+        bottomPanel.repaint();
 
     }
 

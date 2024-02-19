@@ -35,7 +35,12 @@ public class HeartManager {
     public void loseHeart() {
         if (lives > 0) {
             lives--;
-            heartLabels[lives].setVisible(false);
+            // Replace the heart with an empty heart icon
+            ImageIcon emptyHeartIcon = new ImageIcon("C:\\Users\\Thelegend27\\IdeaProjects\\Sudoku1\\src\\Assets\\redX.png");
+            Image emptyHeartImg = emptyHeartIcon.getImage();
+            Image newImg = emptyHeartImg.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
+            emptyHeartIcon = new ImageIcon(newImg);
+            heartLabels[lives].setIcon(emptyHeartIcon);
             if (lives == 0) {
                 JOptionPane.showMessageDialog(null, "Game Over! You've run out of lives.");
                 screenManager.toMainMenu();
