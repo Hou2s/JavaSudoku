@@ -160,7 +160,7 @@ public class SudokuGUI extends JFrame {
     private JPanel createHeartPanel() {
         JPanel heartPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         heartPanel.setOpaque(false); // Make the panel transparent
-        this.heartManager = new HeartManager(screenManager, heartPanel, 3);
+        this.heartManager = new HeartManager(this,screenManager, heartPanel, 3);
         return heartPanel;
     }
 
@@ -214,6 +214,11 @@ public class SudokuGUI extends JFrame {
             }
         }
     }
+
+    public void stopGameTimer() {
+        gameTimer.stop();
+    }
+
 
 
     // Inner class for the game timer

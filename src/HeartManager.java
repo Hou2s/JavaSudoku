@@ -6,13 +6,15 @@ public class HeartManager {
     private JLabel[] heartLabels;
     private JPanel panel;
     private ScreenManager screenManager;
+    private SudokuGUI sudokuGUI;
 
     public int getLives() {
         return this.lives;
     }
 
 
-    public HeartManager(ScreenManager screenManager, JPanel parentPanel, int initialLives) {
+    public HeartManager(SudokuGUI sudokuGUI,ScreenManager screenManager, JPanel parentPanel, int initialLives) {
+        this.sudokuGUI = sudokuGUI;
         this.screenManager = screenManager;
         this.lives = initialLives;
         this.heartLabels = new JLabel[initialLives];
@@ -29,19 +31,20 @@ public class HeartManager {
             panel.add(heartLabels[i]);
         }
 
-            parentPanel.add(panel);
+        parentPanel.add(panel);
     }
 
     public void loseHeart() {
         if (lives > 0) {
             lives--;
-            // Replace the heart with an empty heart icon
+            // Replace the heart with an X
             ImageIcon emptyHeartIcon = new ImageIcon("C:\\Users\\Thelegend27\\IdeaProjects\\Sudoku1\\src\\Assets\\redX.png");
             Image emptyHeartImg = emptyHeartIcon.getImage();
             Image newImg = emptyHeartImg.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
             emptyHeartIcon = new ImageIcon(newImg);
             heartLabels[lives].setIcon(emptyHeartIcon);
             if (lives == 0) {
+                sudokuGUI.stopGameTimer();
                 JOptionPane.showMessageDialog(null, "Game Over! You've run out of lives.");
                 screenManager.toMainMenu();
             }
