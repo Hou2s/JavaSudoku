@@ -183,17 +183,67 @@ public class SudokuGUI extends JFrame {
                 String text = textField.getText();
                 if (!text.isEmpty()) {
                     int input = Integer.parseInt(text);
+                    sudokuBoard.getBoard()[row][col] = input; //Update the board
+
                     if (input == sudokuBoard.getSolution()[row][col]) {
                         textField.setForeground(new Color(40,166,100));
-                    } else {
+                    }
+                    else {
                         textField.setForeground(new Color(168,24,24));
                         heartManager.loseHeart(); // Decrease a heart on wrong input
                     }
+                    checkBoardAndShowPopup();
                 }
             }
         });
     }
 
+    public boolean isBoardFullAndCorrect() {
+        int[][] currentBoard = sudokuBoard.getBoard(); // Get the current board
+        int[][] solution = sudokuBoard.getSolution(); // Get the solution for comparison
+
+        for (int row = 0; row < gridSize; row++) {
+            for (int col = 0; col < gridSize; col++) {
+                // Check if the cell is empty or does not match the solution
+                if (currentBoard[row][col] == 0 || currentBoard[row][col] != solution[row][col]) {
+                    return false; // The board is either not full or incorrect
+                }
+            }
+        }
+        return true; // The board is full and matches the solution
+    }
+
+    public void checkBoardAndShowPopup() {
+        if (isBoardFullAndCorrect()) {
+            // Stop the timer first
+            stopGameTimer();
+
+            // Show the congratulations popup
+            JDialog congratulationsDialog = new JDialog(this, "Congratulations!", true);
+            congratulationsDialog.setLayout(new FlowLayout());
+            JLabel messageLabel = new JLabel("Congratulations! You've completed the puzzle!");
+            JButton newGameButton = new JButton("New Game");
+            JButton mainMenuButton = new JButton("Main Menu");
+
+            newGameButton.addActionListener(e -> {
+                congratulationsDialog.dispose();
+                // Reset the board and restart the game here
+                resetGame();
+            });
+
+            mainMenuButton.addActionListener(e -> {
+                congratulationsDialog.dispose();
+                screenManager.toMainMenu(); // Assuming this method navigates to the main menu
+            });
+
+            congratulationsDialog.add(messageLabel);
+            congratulationsDialog.add(newGameButton);
+            congratulationsDialog.add(mainMenuButton);
+            congratulationsDialog.setSize(300, 150); // Set the size of the popup
+            congratulationsDialog.setLocationRelativeTo(this); // Center the dialog
+            congratulationsDialog.setVisible(true);
+        }
+    }
 
 
     private void setBoard(int[][] board) {
@@ -219,6 +269,11 @@ public class SudokuGUI extends JFrame {
         gameTimer.stop();
     }
 
+    private void resetGame() {
+        sudokuBoard.resetBoard(); // You'll need to implement this method in your SudokuBoard class
+        setBoard(sudokuBoard.getBoard());
+        gameTimer.start();
+    }
 
 
     // Inner class for the game timer
