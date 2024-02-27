@@ -259,7 +259,9 @@ public class SudokuGUI extends JFrame {
                 } else {
                     textField.setText("");
                     textField.setEditable(true);
-                    textField.setBackground(Color.white);
+                    textField.setBackground(new Color(212, 242, 250));
+                    textField.setForeground(Color.BLACK);
+                    textField.setOpaque(true);
                 }
             }
         }
